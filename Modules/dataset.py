@@ -1,7 +1,6 @@
 
 from torch.utils.data import Dataset
 from torchvision import transforms
-import matplotlib.pyplot as plt
 from PIL import Image
 import os
 import torch
@@ -32,19 +31,3 @@ class SegmentationSample(Dataset):
 
     def __getitem__(self, item):
         return self.processed_image
-
-    def print_image(self, title=None):
-        image = self.image
-        if title is not None:
-            plt.title = title
-        plt.imshow(image)
-        plt.pause(5)
-        plt.figure()
-
-    def print_processed(self, title='After processing'):
-        image = self.processed_image.squeeze(0).detach().cpu()
-        image = self.unload_tensor(image)
-        plt.title = title
-        plt.imshow(image)
-        plt.pause(5)
-        plt.figure()

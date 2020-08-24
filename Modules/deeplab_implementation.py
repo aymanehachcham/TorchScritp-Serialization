@@ -2,8 +2,6 @@ import torch
 import torch.nn as nn
 import numpy as np
 import cv2
-from PIL import Image
-import matplotlib.pyplot as plt
 import torchvision.models.segmentation as models
 from .dataset import SegmentationSample
 
@@ -38,14 +36,6 @@ class SemanticSeg(nn.Module):
         model.to(self.device)
         model.eval()
         return model
-
-    def run_inference(self, image: SegmentationSample):
-        # Run the model in the respective device:
-        with torch.no_grad():
-            output = self.model(image.processed_image)['out']
-
-        reshaped_output = torch.argmax(output.squeeze(), dim=0).detach().cpu().numpy()
-        return self.decode_segmentation(reshaped_output, image.image_file)
 
     def decode_segmentation(self, input_image, source, number_channels=21):
 
