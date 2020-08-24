@@ -23,8 +23,6 @@ class SemanticSeg(nn.Module):
         reshaped_output = torch.argmax(output.squeeze(), dim=0).detach().cpu().numpy()
         return self.decode_segmentation(reshaped_output, image.image_file)
 
-    def __getitem__(self, item):
-        return self.model
 
     # Add the Backbone option in the parameters
     def load_model(self, pretrained=False):
@@ -34,7 +32,7 @@ class SemanticSeg(nn.Module):
             model = models.deeplabv3_resnet101()
 
         model.to(self.device)
-        model.eval()
+        #model.eval()
         return model
 
     def decode_segmentation(self, input_image, source, number_channels=21):

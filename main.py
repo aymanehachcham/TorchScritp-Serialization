@@ -12,9 +12,15 @@ path = './'
 filename = 'image-test.jpeg'
 image = SegmentationSample(root_dir=path, image_file=filename, device='cuda')
 
-# Generate a torchscrpt module via tracing:
-traced_script_module = torch.jit.trace(semantic_model, image)
 
-output = traced_script_module(image.processed_image)
+
+# Call to the forward method fo the model:
+#output = semantic_model(image)
+
+
+# Generate a torchscrpt module via tracing:
+# traced_script_module = torch.jit.trace(semantic_model, image)
+#
+# output = traced_script_module(image.processed_image)
 
 
